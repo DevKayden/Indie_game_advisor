@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameDev AI Advisor — 인디 게임 기획 상담 에이전트</title>
+  <meta name="description" content="인디 게임 개발자를 위한 AI 기획 상담 에이전트. 시장 조사, 게임 디자인 패턴, 기술 스택 추천을 멀티턴 대화로 제공합니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+
+    <!-- ── 헤더 ───────────────────────────────────────────────────────────── -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">G</div>
+        <div class="brand-text">
+          <span class="brand-name">GameDev AI Advisor</span>
+          <span class="brand-sub">인디 게임 기획 상담 에이전트</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="status-badge" id="status-badge">
+          <span class="status-dot"></span>
+          <span id="status-text">대기 중</span>
+        </div>
+        <button id="new-chat-btn" class="btn-outline" title="새 대화 시작">
+          새 대화
+        </button>
+      </div>
+    </header>
+
+    <!-- ── 메인 레이아웃 ──────────────────────────────────────────────────── -->
+    <div class="main-layout">
+
+      <!-- 채팅 영역 -->
+      <section class="chat-section">
+        <div class="chat-messages" id="chat-messages">
+
+          <!-- 웰컴 메시지 -->
+          <div class="message msg-ai" id="welcome-msg">
+            <div class="msg-avatar">AI</div>
+            <div class="msg-body">
+              <div class="msg-bubble">
+                <p>안녕하세요! 인디 게임 기획 상담 AI입니다.</p>
+                <p>기획 중인 게임에 대해 자유롭게 이야기해 주세요. 이전 대화 내용을 기억하면서 대화를 이어갑니다.</p>
+                <div class="capability-chips">
+                  <span class="chip chip-market">시장 조사 &amp; 유사 게임 추천</span>
+                  <span class="chip chip-design">게임 디자인 패턴 &amp; 성공 사례</span>
+                  <span class="chip chip-tech">기술 스택 &amp; 개발 환경 추천</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 입력 영역 -->
+        <div class="chat-input-area">
+          <form id="chat-form" class="input-form">
+            <textarea
+              id="message-input"
+              class="input-textarea"
+              placeholder="기획 중인 게임을 설명해 주세요... (예: 탑다운 시점의 로그라이크 액션 게임을 만들고 싶어)"
+              rows="1"
+              maxlength="1500"
+              id="message-input"
+            ></textarea>
+            <button type="submit" id="send-btn" class="btn-send" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+          <p class="input-hint">AI 에이전트가 의도를 분석해 Steam 시장 조사, 게임 디자인 문서 검색, 기술 스택 추천 중 최적의 도구를 자율 선택합니다</p>
+        </div>
+      </section>
+
+      <!-- 사이드 패널 -->
+      <aside class="side-panel" id="side-panel">
+
+        <!-- 에이전트 실행 콘솔 -->
+        <div class="console-card">
+          <div class="console-header">
+            <span class="console-title">Agent Execution Console</span>
+            <div class="console-controls">
+              <button id="clear-console-btn" class="btn-icon" title="콘솔 지우기">지우기</button>
+            </div>
+          </div>
+          <div class="console-body" id="console-log">
+            <div class="console-line cl-system">&gt; 에이전트 대기 중...</div>
+          </div>
+        </div>
+
+        <!-- 게임 카드 패널 (시장 조사 결과) -->
+        <div class="game-cards-card" id="game-cards-panel" style="display:none;">
+          <div class="panel-header">
+            <span class="panel-title">Steam 시장 조사 결과</span>
+          </div>
+          <div class="game-cards-list" id="game-cards-list"></div>
+        </div>
+
+      </aside>
+
+    </div><!-- /.main-layout -->
+  </div><!-- /.app-wrapper -->
+
+  <script src="/app.js"></script>
+</body>
+</html>
