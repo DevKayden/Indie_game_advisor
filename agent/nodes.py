@@ -296,7 +296,7 @@ async def synthesizer_node(state: GameConsultState) -> dict:
         llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.0)
         
         synth_prompt = ChatPromptTemplate.from_messages([
-            ("system", "당신은 스팀 게임 리뷰 분석가입니다.\n수집된 유저 리뷰를 분석하여 게임의 장단점을 명확하고 간결하게 추출하세요.\n\n{format_instructions}"),
+            ("system", "당신은 스팀 게임 리뷰 분석가입니다.\n수집된 유저 리뷰를 분석하여 게임의 장단점을 명확하고 간결하게 추출하세요.\n절대 이모지를 사용하지 마세요. 각 항목은 마크다운 헤더(##, ###)를 사용하여 크기를 키워주세요.\n\n{format_instructions}"),
             ("human", f"게임 이름: {target_game['name']}\n\n유저 리뷰:\n{reviews_text}")
         ])
         
@@ -304,12 +304,12 @@ async def synthesizer_node(state: GameConsultState) -> dict:
             chain = synth_prompt | llm | parser
             analysis_result = await chain.ainvoke({"format_instructions": parser.get_format_instructions()})
             
-            md_lines = [f"### 📊 **{target_game['name']}** 스팀 유저 리뷰 분석\n"]
-            md_lines.append("**✅ 긍정적 평가 (장점)**")
+            md_lines = [f"## **{target_game['name']}** 스팀 유저 리뷰 분석\n"]
+            md_lines.append("### 긍정적 평가 (장점)")
             for pro in analysis_result.pros:
                 md_lines.append(f"- {pro}")
                 
-            md_lines.append("\n**⚠️ 부정적 평가 / 아쉬운 점 (단점)**")
+            md_lines.append("\n### 부정적 평가 / 아쉬운 점 (단점)")
             for con in analysis_result.cons:
                 md_lines.append(f"- {con}")
                 

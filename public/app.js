@@ -20,6 +20,7 @@ const newChatBtn     = document.getElementById('new-chat-btn');
 const clearConsoleBtn = document.getElementById('clear-console-btn');
 const gameCardsPanel = document.getElementById('game-cards-panel');
 const gameCardsList  = document.getElementById('game-cards-list');
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
 
 // ── 유틸리티 ─────────────────────────────────────────────────────────────────
 
@@ -41,6 +42,25 @@ function setStatus(type) {
   } else {
     statusText.textContent = '대기 중';
   }
+}
+
+// ── 테마 토글 로직 ────────────────────────────────────────────────────────────
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  themeToggleBtn.title = theme === 'dark' ? '라이트 모드로 변경' : '다크 모드로 변경';
 }
 
 // ── 마크다운 파서 (경량 구현) ─────────────────────────────────────────────────
@@ -152,10 +172,11 @@ function addAIMessageLoading() {
 
 function replaceLoadingWithResponse(text) {
   const loading = document.getElementById('ai-loading-msg');
-  if (!loading) return;
+  if (!loading) return null;
   const bubble = loading.querySelector('.msg-bubble');
   bubble.innerHTML = parseMarkdown(text);
   loading.removeAttribute('id');
+  return bubble;
 }
 
 function addAIErrorMessage(text) {
@@ -173,13 +194,22 @@ function scrollChat() {
 
 // ── 게임 카드 렌더링 ──────────────────────────────────────────────────────────
 
-function renderGameCards(marketData) {
-  if (!marketData || marketData.length === 0) {
-    gameCardsPanel.style.display = 'none';
+function renderGameCards(marketData, parentElement) {
+  if (!marketData || marketData.length === 0 || !parentElement) {
     return;
   }
 
-  gameCardsList.innerHTML = '';
+  // 기존 게임 카드 컨테이너가 있으면 제거하고 새로 만듭니다
+  let cardsContainer = parentElement.querySelector('.chat-game-cards-container');
+  if (!cardsContainer) {
+    cardsContainer = document.createElement('div');
+    cardsContainer.className = 'chat-game-cards-container';
+    cardsContainer.style.marginTop = '1.5rem';
+    parentElement.appendChild(cardsContainer);
+  } else {
+    cardsContainer.innerHTML = '';
+  }
+
   marketData.forEach(game => {
     const videos = game.youtube_videos || [];
     const card = document.createElement('div');
@@ -187,7 +217,11 @@ function renderGameCards(marketData) {
     card.innerHTML = `
       <div class="game-card-header">
         ${game.img ? `<img class="game-card-img" src="${game.img}" alt="${escapeHtml(game.name)}" onerror="this.style.display='none'">` : ''}
-        <span class="game-card-title">${escapeHtml(game.name)}</span>
+        <span class="game-card-title">
+          <a href="https://store.steampowered.com/app/${game.appid}/" target="_blank" class="steam-store-link" title="Steam 상점 페이지 열기">
+            ${escapeHtml(game.name)} <span class="link-icon">↗</span>
+          </a>
+        </span>
       </div>
       <div class="game-card-stats">
         <span class="stat-badge stat-players">동접자 ${(game.players || 0).toLocaleString()}명</span>
@@ -198,10 +232,8 @@ function renderGameCards(marketData) {
         <div class="video-label">리뷰 영상</div>
         ${videos.map(v => `<a class="video-link" href="${v.url}" target="_blank" rel="noopener">${escapeHtml(v.title)}</a>`).join('')}
       </div>` : ''}`;
-    gameCardsList.appendChild(card);
+    cardsContainer.appendChild(card);
   });
-
-  gameCardsPanel.style.display = 'block';
 }
 
 // ── 메시지 전송 ───────────────────────────────────────────────────────────────
@@ -252,8 +284,10 @@ async function sendMessage(text) {
         if (sid) sessionId = sid;
 
         if (type === 'result') {
-          replaceLoadingWithResponse(response || '(응답 없음)');
-          renderGameCards(market_data);
+          const aiBubble = replaceLoadingWithResponse(response || '(응답 없음)');
+          if (aiBubble) {
+            renderGameCards(market_data, aiBubble);
+          }
           addConsoleLog('에이전트 실행 완료.', 'finish');
           setStatus('idle');
 

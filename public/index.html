@@ -27,6 +27,9 @@
           <span class="status-dot"></span>
           <span id="status-text">대기 중</span>
         </div>
+        <button id="theme-toggle-btn" class="btn-outline" style="padding: 0.5rem;" title="라이트 모드로 변경">
+          ☀️
+        </button>
         <button id="new-chat-btn" class="btn-outline" title="새 대화 시작">
           새 대화
         </button>
@@ -48,7 +51,7 @@
                 <p>안녕하세요! 인디 게임 기획 상담 AI입니다.</p>
                 <p>기획 중인 게임에 대해 자유롭게 이야기해 주세요. 이전 대화 내용을 기억하면서 대화를 이어갑니다.</p>
                 <div class="capability-chips">
-                  <span class="chip chip-market">시장 조사 &amp; 유사 게임 추천</span>
+                  <span class="chip chip-market">시장 조사 및 리뷰 분석</span>
                   <span class="chip chip-design">게임 디자인 패턴 &amp; 성공 사례</span>
                   <span class="chip chip-tech">기술 스택 &amp; 개발 환경 추천</span>
                 </div>
@@ -96,13 +99,7 @@
           </div>
         </div>
 
-        <!-- 게임 카드 패널 (시장 조사 결과) -->
-        <div class="game-cards-card" id="game-cards-panel" style="display:none;">
-          <div class="panel-header">
-            <span class="panel-title">Steam 시장 조사 결과</span>
-          </div>
-          <div class="game-cards-list" id="game-cards-list"></div>
-        </div>
+
 
       </aside>
 
