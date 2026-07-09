@@ -194,3 +194,16 @@ Indie_game_advisor/
 - **응답 속도 병목**: 복잡한 질문의 경우, 의도 분류 -> Steam API 호출 -> YouTube 검색 -> LLM 종합 등 여러 단계를 직렬로 거치다 보니 응답 시간이 10~15초 정도 소요됩니다. 비동기(`asyncio.gather`) 처리 범위를 늘려 외부 도구 호출을 병렬로 최적화하는 작업이 필요합니다.
 
 ---
+
+## 6. 실행 결과 화면 (Screenshots)
+
+### 1) 마켓 분석 및 유튜브 영상 제공 (Market Research)
+![마켓 분석 결과 화면](./market_screenshot.png)
+
+### 2) 게임 디자인 RAG 검색 (Design Advice)
+![디자인 조언 결과 화면](./design_screenshot.png)
+
+### 3) 기술 스택 추천 (Tech Advice)
+![기술 추천 결과 화면](./tech_screenshot.png)
+
+---
