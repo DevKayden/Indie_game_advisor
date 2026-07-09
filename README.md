@@ -86,23 +86,23 @@ graph TD;
 
 ```mermaid
 flowchart LR
-    Client["💻 Client\n(Web UI)"]
-    FastAPI["🚀 FastAPI Server\n(SSE Streaming)"]
+    Client["Client\n(Web UI)"]
+    FastAPI["FastAPI Server\n(SSE Streaming)"]
     
-    subgraph AgentSystem ["🤖 LangGraph Agent System"]
+    subgraph AgentSystem ["LangGraph Agent System"]
         Guard["Input Guard"]
         Classifier["Intent Classifier"]
         Experts["Expert Nodes"]
         Synth["Synthesizer"]
     end
     
-    subgraph ExternalTools ["🛠️ External Tools & RAG"]
+    subgraph ExternalTools ["External Tools & RAG"]
         Steam["Steam API\n(Market Data)"]
         Youtube["YouTube API\n(Video Review)"]
         Chroma["Chroma DB\n(Design Docs)"]
     end
     
-    subgraph Database ["💾 Memory"]
+    subgraph Database ["Memory"]
         Sqlite["SQLite\n(Checkpointer)"]
     end
 
@@ -118,6 +118,10 @@ flowchart LR
     FastAPI -- "5. SSE Stream (Chunks)" --> Client
     
     AgentSystem -. "Read/Write State" .- Sqlite
+
+    style AgentSystem fill:#F4F0FA,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95
+    style ExternalTools fill:#F4F0FA,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95
+    style Database fill:#F4F0FA,stroke:#d8b4fe,stroke-width:2px,color:#4c1d95
 ```
 
 ### 프로젝트 폴더 구조 (Directory Structure)
