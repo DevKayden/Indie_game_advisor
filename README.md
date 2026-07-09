@@ -82,6 +82,44 @@ graph TD;
     classDef last fill:#bfb6fc
 ```
 
+### 전체 시스템 데이터 흐름도 (System Architecture)
+
+```mermaid
+flowchart LR
+    Client["💻 Client\n(Web UI)"]
+    FastAPI["🚀 FastAPI Server\n(SSE Streaming)"]
+    
+    subgraph AgentSystem ["🤖 LangGraph Agent System"]
+        Guard["Input Guard"]
+        Classifier["Intent Classifier"]
+        Experts["Expert Nodes"]
+        Synth["Synthesizer"]
+    end
+    
+    subgraph ExternalTools ["🛠️ External Tools & RAG"]
+        Steam["Steam API\n(Market Data)"]
+        Youtube["YouTube API\n(Video Review)"]
+        Chroma["Chroma DB\n(Design Docs)"]
+    end
+    
+    subgraph Database ["💾 Memory"]
+        Sqlite["SQLite\n(Checkpointer)"]
+    end
+
+    Client -- "1. User Input (POST)" --> FastAPI
+    FastAPI -- "2. Execute Graph (astream)" --> Guard
+    Guard --> Classifier --> Experts --> Synth
+    
+    Experts -- "3. Tool Call" --> Steam
+    Experts -- "3. Tool Call" --> Youtube
+    Experts -- "3. Tool Call" --> Chroma
+    
+    Synth -- "4. Streaming Output" --> FastAPI
+    FastAPI -- "5. SSE Stream (Chunks)" --> Client
+    
+    AgentSystem -. "Read/Write State" .- Sqlite
+```
+
 ### 프로젝트 폴더 구조 (Directory Structure)
 
 ```text
