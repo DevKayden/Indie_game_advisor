@@ -1,7 +1,9 @@
-"""RAG 벡터 스토어 초기화 및 관리 모듈.
+"""
+RAG 벡터 스토어 초기화 및 관리 모듈.
 
 ChromaDB를 사용하여 게임 디자인 문서를 임베딩하고
-유사 문서 검색 기능을 제공합니다.
+유사 문서 검색 기능을 제공.
+
 """
 import logging
 from pathlib import Path
@@ -22,7 +24,7 @@ _embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 def _build_vectorstore() -> Chroma:
-    """문서 디렉토리에서 Chroma 벡터 스토어를 생성합니다."""
+    #문서 디렉토리에서 Chroma 벡터 스토어를 생성.
     logger.info("RAG 벡터 스토어 구축 중... (최초 실행 시 약 30초 소요)")
 
     loader = DirectoryLoader(

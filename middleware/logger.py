@@ -13,7 +13,7 @@ logger = logging.getLogger("indie_game_advisor")
 
 
 def log_node(node_name: str):
-    """LangGraph 노드 함수에 적용하는 실행 시간 및 상태 로깅 데코레이터."""
+    #LangGraph 노드 함수에 적용하는 실행 시간 및 상태 로깅 데코레이터.
 
     def decorator(func):
         @wraps(func)

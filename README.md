@@ -79,6 +79,22 @@ graph TD;
     classDef default fill:#f2f0ff,line-height:1.2
     classDef first fill-opacity:0
     classDef last fill:#bfb6fc
+    classDef last fill:#bfb6fc
+```
+
+### 프로젝트 폴더 구조 (Directory Structure)
+
+```text
+Indie_game_advisor/
+├── agent/              # LangGraph 기반 노드, 라우터, 상태(State) 정의
+│   ├── graph.py        # StateGraph 조립 및 조건부 분기(Conditional Edge)
+│   ├── nodes.py        # 전문가 노드(시장조사, 기획, 기술 등) 및 프롬프트
+│   └── tools.py        # 외부 API(Steam, YouTube) 호출 도구(Tool)
+├── rag/                # RAG 파이프라인 (Chroma DB 및 문서 임베딩)
+├── public/             # 프론트엔드 UI (HTML, CSS, JS)
+├── main.py             # FastAPI 메인 서버 및 스트리밍 엔드포인트
+├── requirements.txt    # 파이썬 의존성 패키지 목록
+└── README.md           # 프로젝트 문서 및 결과 보고서
 ```
 
 ---
@@ -100,13 +116,18 @@ graph TD;
    OPENAI_API_KEY="sk-..."
    ```
 4. **서버 실행**
-   - 개발 모드 (코드를 수정하면 자동으로 재시작됩니다)
+   - 개발 모드 (코드를 수정하면 자동으로 재시작)
    ```bash
    uvicorn main:app --reload --port 3000
    ```
    - (또는 `python main.py` 명령어로도 실행 가능합니다.)
 5. **접속**
    - 브라우저를 열고 `http://localhost:3000`에 접속하여 챗봇 UI를 확인합니다.
+6. **평가용 테스트 쿼리**
+   - `데드셀 시장 조사 해줘` *(Market 의도 - Steam API 호출 및 리뷰 분석)*
+   - `로그라이크 게임에 어울리는 맵 생성 방식 추천해줘` *(Design 의도 - 로컬 RAG 검색)*
+   - `2D 도트 액션 게임을 1인 개발하려는데 엔진 추천해줘` *(Tech 의도 - 기술 스택 추천)*
+   - `안녕! 넌 무슨 일을 할 수 있어?` *(General 의도 - 일반 대화 처리)*
 
 ---
 

@@ -1,7 +1,7 @@
 """LangGraph 노드 함수 정의 모듈.
 
-각 노드는 GameConsultState를 받아 업데이트된 필드 딕셔너리를 반환합니다.
-모든 노드는 stream_log()를 통해 실시간 SSE 로그를 전송합니다.
+각 노드는 GameConsultState를 받아 업데이트된 필드 딕셔너리를 반환.
+모든 노드는 stream_log()를 통해 실시간 SSE 로그를 전송.
 """
 import logging
 from typing import Literal

@@ -62,7 +62,7 @@ def route_by_intent(
 # ──────────────────────────────────────────────────────────────────────────────
 
 def build_graph():
-    """LangGraph StateGraph를 조립하고 MemorySaver로 컴파일합니다."""
+    #LangGraph StateGraph를 조립하고 MemorySaver로 컴파일
     builder = StateGraph(GameConsultState)
 
     # ── 노드 등록 ──────────────────────────────────────────────────────────────

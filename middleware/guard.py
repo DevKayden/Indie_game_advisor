@@ -17,7 +17,7 @@ def validate_input(user_input: str) -> tuple[bool, str]:
 
     Returns:
         (is_valid: bool, error_message: str)
-        is_valid가 False이면 error_message에 사유가 담깁니다.
+        is_valid가 False이면 error_message에 사유가 담긴다..
     """
     if not user_input or not user_input.strip():
         return False, "입력값이 비어있습니다."

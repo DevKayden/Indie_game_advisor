@@ -4,15 +4,15 @@ from langgraph.graph.message import add_messages
 
 
 class GameConsultState(TypedDict):
-    """인디 게임 기획 상담 에이전트의 전체 상태를 정의합니다."""
+    """인디 게임 기획 상담 에이전트의 전체 상태를 정의."""
 
-    # 전체 대화 이력 — add_messages 리듀서가 새 메시지를 이전 목록에 추가합니다
+    # 전체 대화 이력 — add_messages 리듀서가 새 메시지를 이전 목록에 추가
     messages: Annotated[list, add_messages]
 
     # 누적되는 게임 기획 맥락 (예: "로그라이크 액션, 2D 픽셀 스타일, 싱글플레이")
     game_context: str
 
-    # intent_classifier가 분류한 현재 요청 의도
+    # intent_classifier가 분류한 현재 요청 의도 -> 의도에 따라 분기할 거라 중요
     # "market" | "design" | "tech" | "general"
     intent: str
 

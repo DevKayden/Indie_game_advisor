@@ -133,8 +133,8 @@ async def _scrape_youtube(game_name: str, client: httpx.AsyncClient) -> list[dic
 
 @tool
 async def steam_market_search(query: str) -> list:
-    """Steam Store에서 인디 게임을 검색하여 유사 게임 목록(이름, 동접자, 가격, 이미지)을 반환합니다.
-    DLC와 사운드트랙은 자동으로 제외됩니다.
+    """Steam Store에서 인디 게임을 검색하여 유사 게임 목록(이름, 동접자, 가격, 이미지)을 반환.
+    DLC와 사운드트랙은 자동으로 제외된다.
 
     Args:
         query: 검색할 영어 게임 키워드 (예: "roguelike action dungeon")
@@ -185,7 +185,7 @@ async def steam_market_search(query: str) -> list:
 
 @tool
 async def youtube_review_search(game_name: str) -> list:
-    """지정한 게임의 YouTube 리뷰·분석 영상 3개를 검색하여 제목과 URL을 반환합니다.
+    """지정한 게임의 YouTube 리뷰·분석 영상 3개를 검색하여 제목과 URL을 반환.
 
     Args:
         game_name: 검색할 게임 이름 (한국어 또는 영어)
@@ -200,8 +200,8 @@ async def youtube_review_search(game_name: str) -> list:
 
 @tool
 def game_design_rag_search(query: str) -> str:
-    """로컬 게임 디자인 지식 베이스(Chroma DB)에서 관련 문서를 검색합니다.
-    장르 특성, 성공 사례 분석, 게임 피드백 원칙, 수익화 전략 등을 포함합니다.
+    """로컬 게임 디자인 지식 베이스(Chroma DB)에서 관련 문서를 검색.
+    장르 특성, 성공 사례 분석, 게임 피드백 원칙, 수익화 전략 등을 포함.
 
     Args:
         query: 검색할 질문 또는 키워드 (한국어 권장)

@@ -1,10 +1,12 @@
-"""FastAPI 메인 서버 모듈.
+"""
+FastAPI 메인 서버 모듈.
 
 엔드포인트:
   GET  /          → index.html (채팅 UI)
   POST /api/chat  → SSE 스트리밍 채팅 (LangGraph 에이전트 실행)
   GET  /api/health → 서버 상태 확인
-"""
+
+  """
 import asyncio
 import json
 import logging
