@@ -73,6 +73,8 @@ function parseMarkdown(text) {
     // 인라인 코드
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     // 헤딩
+    .replace(/^##### (.+)$/gm, '<h5>$1</h5>')
+    .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
     .replace(/^# (.+)$/gm, '<h1>$1</h1>')
@@ -83,10 +85,13 @@ function parseMarkdown(text) {
     // 수평선
     .replace(/^---+$/gm, '<hr/>')
     // 순서 없는 목록
-    .replace(/^[\*\-] (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .replace(/^[\*\-] (.+)$/gm, '<li class="ul-item">$1</li>')
     // 순서 있는 목록
-    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    .replace(/^\d+\. (.+)$/gm, '<li class="ol-item">$1</li>')
+    // ul 래핑
+    .replace(/(?:<li class="ul-item">.*?<\/li>\s*)+/g, match => '<ul>' + match.replace(/ class="ul-item"/g, '') + '</ul>')
+    // ol 래핑
+    .replace(/(?:<li class="ol-item">.*?<\/li>\s*)+/g, match => '<ol>' + match.replace(/ class="ol-item"/g, '') + '</ol>')
     // 링크
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
     // 단락

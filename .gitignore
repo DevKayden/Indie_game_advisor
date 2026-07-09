@@ -11,6 +11,13 @@ venv.bak/
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Test scripts
+test_intents.py
+
+__pycache__/
+*.py[cod]
+*$py.class
 *.so
 
 # Jupyter Notebook
