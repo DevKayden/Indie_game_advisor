@@ -1,4 +1,4 @@
-"""구조화 로깅 미들웨어."""
+#구조화 로깅 미들웨어.
 import logging
 import time
 from functools import wraps

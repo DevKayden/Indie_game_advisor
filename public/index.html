@@ -16,7 +16,15 @@
     <!-- ── 헤더 ───────────────────────────────────────────────────────────── -->
     <header class="app-header">
       <div class="header-brand">
-        <div class="brand-icon">G</div>
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="12" x2="10" y2="12"></line>
+            <line x1="8" y1="10" x2="8" y2="14"></line>
+            <line x1="15" y1="13" x2="15.01" y2="13"></line>
+            <line x1="18" y1="11" x2="18.01" y2="11"></line>
+            <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+          </svg>
+        </div>
         <div class="brand-text">
           <span class="brand-name">GameDev AI Advisor</span>
           <span class="brand-sub">인디 게임 기획 상담 에이전트</span>
@@ -27,8 +35,8 @@
           <span class="status-dot"></span>
           <span id="status-text">대기 중</span>
         </div>
-        <button id="theme-toggle-btn" class="btn-outline" style="padding: 0.5rem;" title="라이트 모드로 변경">
-          ☀️
+        <button id="theme-toggle-btn" class="btn-outline" style="padding: 0.5rem;" title="다크 모드로 변경">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
         <button id="new-chat-btn" class="btn-outline" title="새 대화 시작">
           새 대화
